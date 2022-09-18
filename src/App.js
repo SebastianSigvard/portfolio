@@ -13,12 +13,12 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-      <Route exact path='/' element={<Home />} />
-      <Route path='/cal-count' element={<CalCounter/>} />
-      <Route path='/market-status' element={<MarketStatus/>} />
-      <Route path='/contact' element={<ContactMe/>} />
-      <Route path="/404" element={<NotFoundPage/>} />
-      <Route path="*" element={<Navigate replace to="/404" />} />
+        <Route exact path='/' element={<Home />} />
+        <Route path='/cal-count' element={<CalCounter/>} />
+        <Route path='/market-status' element={<MarketStatus/>} />
+        <Route path='/contact' element={<ContactMe/>} />
+        <Route path="/404" element={<NotFoundPage/>} />
+        <Route path="*" element={<Navigate replace to="/404" />} />
       </Routes>
     </Router>
   );
