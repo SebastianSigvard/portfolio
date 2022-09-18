@@ -31,8 +31,8 @@ export default class Navbar extends React.Component {
                 <nav style={{display : displayNav}}>
                     <img id="mobile-exit" className="mobile-menu-exit" src="images/x.svg" alt="Close navegation menu" onClick={()=>this.setState({menuDisplayed: false})}/>
                     <ul className="primary-nav">
-                        <li><a href="home">Home</a></li>
-                        <li><a href="calcount">Calories Counter</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="cal-count">Calories Counter</a></li>
                         <li><a href="market-status">Market Status</a></li>
                     </ul>
                     <ul className="secondary-nav">
