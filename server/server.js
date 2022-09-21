@@ -1,3 +1,4 @@
+import {handleFoodGetReq, handleFoodPostReq, handleFoodDeleteReq} from './src/cal-count.js';
 import {handleLoginRequest, handleRegisterRequest} from './src/login-register.js';
 import contactMe from './src/contact-me.js';
 import bodyParser from 'body-parser';
@@ -31,7 +32,28 @@ app.post('/login', async (request, response) => {
 });
 
 app.post('/register', async (request, response) => {
-  const res = handleRegisterRequest(request.body);
+  const res = await handleRegisterRequest(request.body);
+
+  if(res.status === 'error') return response.status(400).json(res);
+  response.status(200).json(res);
+});
+
+app.get('/cal-api-v1/food', async (request, response) => {
+  const res = await handleFoodGetReq(request.headers.authorization);
+
+  if(res.status === 'error') return response.status(400).json(res);
+  response.status(200).json(res);
+});
+
+app.post('/cal-api-v1/food', async (request, response) => {
+  const res = await handleFoodPostReq(request.headers.authorization, request.body);
+
+  if(res.status === 'error') return response.status(400).json(res);
+  response.status(200).json(res);
+});
+
+app.delete('/cal-api-v1/food', async (request, response) => {
+  const res = await handleFoodDeleteReq(request.headers.authorization);
 
   if(res.status === 'error') return response.status(400).json(res);
   response.status(200).json(res);

@@ -21,7 +21,7 @@ export async function handleLoginRequest({userName, password}) {
         username: user.userName
     }, process.env.JWT_SECRET );
 
-    return {status: "ok", data: token};
+    return {status: "ok", token};
 }
 
 export async function handleRegisterRequest({userName, password: plainTextPassword}) {
