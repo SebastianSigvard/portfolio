@@ -1,3 +1,19 @@
+.hero-contactme {
+    text-align: center;
+    background-color: var(--primary-color);
+    margin: 6% 25% 0% 25%;
+    padding: 2em;
+    border-radius: 1em;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.hero-contactme .hero-name {
+    font-size: 3.5em;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}
+
 input {
     margin: 0.5em;
 }
@@ -42,4 +58,10 @@ input:not(.btn) {
     border: none;
     border-radius: 3px;
     text-align: center;
+}
+
+@media only screen and (max-width: 870px) {
+    .hero-contactme {
+        margin: 12.5% 1em 0% 1em;
+    }
 }

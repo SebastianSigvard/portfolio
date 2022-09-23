@@ -46,7 +46,7 @@ export default class ContactMe extends React.Component {
 
     render(){
         return (
-        <section className="hero">
+        <section className="hero-contactme">
             <div className="container">
                 <h2>Send Me a Message</h2>
                 <form id="contact-form" className="main-panel">
