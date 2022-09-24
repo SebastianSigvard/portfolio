@@ -50,3 +50,12 @@ export async function handleRegisterRequest({userName, password: plainTextPasswo
   
     return {status: "ok"};
 }
+
+export async function handleTokenValidationRequest(token) {    
+    try {
+        jwt.verify(token, process.env.JWT_SECRET);
+        return {status: "ok"};
+    } catch(error) {
+        return {status: "error", error: "Corronped Token"};
+    }
+}

@@ -1,5 +1,5 @@
+import {handleLoginRequest, handleRegisterRequest, handleTokenValidationRequest} from './src/login-register.js';
 import {handleFoodGetReq, handleFoodPostReq, handleFoodDeleteReq} from './src/cal-count.js';
-import {handleLoginRequest, handleRegisterRequest} from './src/login-register.js';
 import contactMe from './src/contact-me.js';
 import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
@@ -33,6 +33,13 @@ app.post('/login', async (request, response) => {
 
 app.post('/register', async (request, response) => {
   const res = await handleRegisterRequest(request.body);
+
+  if(res.status === 'error') return response.status(400).json(res);
+  response.status(200).json(res);
+});
+
+app.get('/token-validation', async (request, response) => {
+  const res = await handleTokenValidationRequest(request.headers.authorization);
 
   if(res.status === 'error') return response.status(400).json(res);
   response.status(200).json(res);
