@@ -49,12 +49,9 @@ class CalCountLogin extends React.Component {
         <h2>LOGIN</h2>
         <form id="login-form" className="main-panel">
             <label><strong>Username</strong></label> 
-            <br/>  
-            <input id="user-name" type="text" placeholder="Enter Username" name="username" required/>
-            <br/>
-            <label><strong>Password</strong></label>
-            <br/>
-            <input id="password" type="password" placeholder="Enter Password" name="password" required/>
+            <br/><input id="user-name" type="text" placeholder="Enter Username" name="username" required/>
+            <br/><label><strong>Password</strong></label>
+            <br/><input id="password" type="password" placeholder="Enter Password" name="password" required/>
             <br/>
             <button id="submit-button" type="submit" onClick={this.props.handleLogin}>Login</button>
             <button id="go-registration-button" onClick={this.props.handleGoToRegister}>Register</button>
@@ -67,10 +64,19 @@ class CalCountLogin extends React.Component {
 class CalCountRegister extends React.Component {
   render(){
     return(
-      <div>
-        <h1>CalCountRegister</h1>
-        <button id="go-login-button" onClick={this.props.handleGoToLogin}>Login</button>
-      </div>);
+      <div className="container">
+        <h2>REGISTRATION</h2>
+        <form id="registration-form" className="main-panel">
+            <label><strong>Username</strong></label> 
+            <br/><input id="user-name-reg" type="text" placeholder="Enter Username" name="username" required/>
+            <br/><label><strong>Password</strong></label>
+            <br/><input id="password-reg" type="password" placeholder="Enter Password" name="password" required/>
+            <br/>
+            <button id="submit-button-reg" type="submit">Register</button>
+            <button id="go-login-button" onClick={this.props.handleGoToLogin}>GoLogin</button>
+        </form>
+      </div>
+    );
   }
 }
 
