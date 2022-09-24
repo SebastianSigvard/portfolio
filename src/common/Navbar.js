@@ -28,7 +28,7 @@ export default class Navbar extends React.Component {
     styles["cal-count"] = "normal";
     styles["market-status"] = "normal";
 
-    const path = window.location.href.slice(22);
+    const path = window.location.href.slice(26);
     if(path === ''){
       styles["home"] = "bold";
     } else if(path === 'cal-count') {

@@ -2,6 +2,7 @@ import React from 'react'
 import './calCounter.css'
 
 class CalCountApp extends React.Component {
+
   render(){
     const num_input_properties = {
       className:"nutrition-input",
@@ -18,12 +19,12 @@ class CalCountApp extends React.Component {
             <h2>Add food</h2>
             <form id="create-form">
               <div className="nutrition-values">
-                <label for="create-name">Food name:</label>  <input id="create-name" type="text/" placeholder="Name"/>
-                <label for="create-carbs">Carbs:</label>     <input id="create-carbs" {... num_input_properties} />
-                <label for="create-protein">Protein:</label> <input id="create-protein" {... num_input_properties} />
-                <label for="create-fat">Fat:</label>         <input id="create-fat" {... num_input_properties} />
+                <label htmlFor="create-name">Food name:</label>  <input id="create-name" type="text/" placeholder="Name"/>
+                <label htmlFor="create-carbs">Carbs:</label>     <input id="create-carbs" {... num_input_properties} />
+                <label htmlFor="create-protein">Protein:</label> <input id="create-protein" {... num_input_properties} />
+                <label htmlFor="create-fat">Fat:</label>         <input id="create-fat" {... num_input_properties} />
               </div>
-              <input type="button" className="btn btn-default create-submit" value="Add"/>
+              <button className="btn btn-default create-submit">Add</button>
             </form>
 
             <h2>Stats</h2>
@@ -35,17 +36,62 @@ class CalCountApp extends React.Component {
             </div>
             <ul id="food-list"></ul>
         </div>
-        <button id="clean-entrys">Clean Entrys</button><button id="log-out">LogOut</button>
+        <button id="clean-entrys">Clean Entrys</button><button id="log-out" onClick={this.props.handleLogout}>LogOut</button>
       </div>
     );
   }
 }
 
+class CalCountLogin extends React.Component {
+  constructor(props){
+    super(props);        
+
+    this.state = {
+        token : '',
+    }
+  }
+
+  render(){
+    return(
+    <div>
+      <h1>CalCountLogin</h1>
+      <button onClick={this.props.handleLogin}>Login</button>
+    </div>);
+  }
+}
+
+// class CalCountRegister extends React.Component {
+//   render(){
+//     return(<h1>CalCountRegister</h1>);
+//   }
+// }
+
 export default class CalCounter extends React.Component {
+  constructor(){
+    super();        
+
+    this.state = {
+        token : localStorage.getItem('token'),
+    }
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogin(){
+    localStorage.setItem('token', "token");
+    this.setState({token: localStorage.getItem('token')});
+  }
+
+  handleLogout(){
+    localStorage.removeItem('token');
+    this.setState({token: ''});
+  }
+
   render(){
     return ( 
       <section className="hero-calcount">
-        <CalCountApp />
+        {this.state.token && <CalCountApp handleLogout={this.handleLogout}/>}
+        {!this.state.token && <CalCountLogin handleLogin={this.handleLogin}/>}
       </section>
     );
   }
