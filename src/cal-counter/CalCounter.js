@@ -1,3 +1,4 @@
+import { eventWrapper } from '@testing-library/user-event/dist/utils';
 import React from 'react'
 import './calCounter.css'
 
@@ -43,18 +44,40 @@ class CalCountApp extends React.Component {
 }
 
 class CalCountLogin extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      userName: '',
+      password: ''
+    }
+
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  async handleLogin(event){
+    event.preventDefault();
+    await this.props.handleLogin(this.state.userName, this.state.password);
+  }
+
+  async handleChange(event) {
+    const {name, value} = event.currentTarget;
+    this.setState({[name]: value}) 
+  }
+
   render(){
     return(
       <div className="container">
         <h2>LOGIN</h2>
         <form id="login-form" className="main-panel">
             <label><strong>Username</strong></label> 
-            <br/><input id="user-name" type="text" placeholder="Enter Username" name="username" required/>
+            <br/><input id="user-name" type="text" placeholder="Enter Username" name="userName" value={this.state.userName} onChange={this.handleChange} required/>
             <br/><label><strong>Password</strong></label>
-            <br/><input id="password" type="password" placeholder="Enter Password" name="password" required/>
+            <br/><input id="password" type="password" placeholder="Enter Password" name="password" value={this.state.password} onChange={this.handleChange}  required/>
             <br/>
-            <button id="submit-button" type="submit" onClick={this.props.handleLogin}>Login</button>
-            <button id="go-registration-button" onClick={this.props.handleGoToRegister}>Register</button>
+            <button id="submit-button" onClick={this.handleLogin}>Login</button>
+            <button id="go-registration-button" onClick={this.props.handleGoToRegister} >Register</button>
         </form>
       </div>
     );
@@ -62,17 +85,18 @@ class CalCountLogin extends React.Component {
 }
 
 class CalCountRegister extends React.Component {
+
   render(){
     return(
       <div className="container">
         <h2>REGISTRATION</h2>
         <form id="registration-form" className="main-panel">
             <label><strong>Username</strong></label> 
-            <br/><input id="user-name-reg" type="text" placeholder="Enter Username" name="username" required/>
+            <br/><input id="user-name-reg" type="text" placeholder="Enter Username" required/>
             <br/><label><strong>Password</strong></label>
-            <br/><input id="password-reg" type="password" placeholder="Enter Password" name="password" required/>
+            <br/><input id="password-reg" type="password" placeholder="Enter Password" required/>
             <br/>
-            <button id="submit-button-reg" type="submit">Register</button>
+            <button id="submit-button-reg">Register</button>
             <button id="go-login-button" onClick={this.props.handleGoToLogin}>GoLogin</button>
         </form>
       </div>
@@ -88,15 +112,44 @@ export default class CalCounter extends React.Component {
         token : localStorage.getItem('token'),
         onLogin: true
     }
+
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleGoToRegister = this.handleGoToRegister.bind(this);
     this.handleGoToLogin = this.handleGoToLogin.bind(this);
   }
 
-  handleLogin(){
-    localStorage.setItem('token', "token");
-    this.setState({token: localStorage.getItem('token')});
+  async componentDidMount(){
+    if(!this.state.token) return;
+
+    const resp = await fetch('/token-validation', {
+      method: 'get',
+      headers: {'Authorization': this.state.token},
+    });
+    
+    if(resp.status === 200) return;
+    localStorage.removeItem('token')
+    this.setState({token: ''});
+  }
+
+  async handleLogin(userName, password){
+    const resp = await fetch('/login', {
+      method: 'post',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+       userName,
+       password
+      })
+    });
+
+    const data = await resp.json();
+
+    if(data.status === 'ok') {
+      localStorage.setItem('token', data.token);
+      this.setState({token: data.token});
+    } else {
+      alert(data.error);
+    }
   }
 
   handleLogout(){
