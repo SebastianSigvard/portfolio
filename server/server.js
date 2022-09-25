@@ -31,7 +31,7 @@ app.post('/login', async (request, response) => {
   response.status(200).json(res);
 });
 
-app.post('/register', async (request, response) => {
+app.post('/registration', async (request, response) => {
   const res = await handleRegisterRequest(request.body);
 
   if(res.status === 'error') return response.status(400).json(res);
