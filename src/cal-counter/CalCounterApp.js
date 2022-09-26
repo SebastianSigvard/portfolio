@@ -26,8 +26,15 @@ export default class CalCountApp extends React.Component {
       super(props);
 
       this.state = {
-        foodEntries: []
+        foodEntries: [],
+        name: '',
+        carbs: 0,
+        protein: 0,
+        fat: 0
       }
+
+      this.handleAddFood = this.handleAddFood.bind(this);
+      this.handleChange = this.handleChange.bind(this);
     }
 
     async componentDidMount(){  
@@ -44,6 +51,40 @@ export default class CalCountApp extends React.Component {
       const data = await resp.json();
 
       this.setState({foodEntries: data.foodEntries});
+    }
+
+    async handleChange(event) {
+      const {name, value} = event.currentTarget;
+      this.setState({[name]: value}) 
+    }
+
+    async handleAddFood(event){
+      event.preventDefault();
+      const token = localStorage.getItem('token');
+      if(!token) return this.props.handleLogout();
+
+      const resp = await fetch('/cal-api-v1/food', {
+        method: 'post',
+        headers: {'Authorization': token, 'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          name: this.state.name,
+          carbs: this.state.carbs,
+          protein: this.state.protein,
+          fat: this.state.fat,
+        })
+      });
+      
+      if(resp.status !== 200) return this.props.handleLogout();
+
+      const data = await resp.json();
+
+      this.setState({foodEntries: [...this.state.foodEntries,{
+        id: data.id,
+        name: this.state.name,
+        carbs: this.state.carbs,
+        protein: this.state.protein,
+        fat: this.state.fat,
+      }]});
     }
 
     render(){
@@ -64,12 +105,16 @@ export default class CalCountApp extends React.Component {
               <h2>Add food</h2>
               <form id="create-form">
                 <div className="nutrition-values">
-                  <label htmlFor="create-name">Food name:</label>  <input id="create-name" type="text/" placeholder="Name"/>
-                  <label htmlFor="create-carbs">Carbs:</label>     <input id="create-carbs" {... num_input_properties} />
-                  <label htmlFor="create-protein">Protein:</label> <input id="create-protein" {... num_input_properties} />
-                  <label htmlFor="create-fat">Fat:</label>         <input id="create-fat" {... num_input_properties} />
+                  <label htmlFor="create-name">Food name:</label>  
+                  <input id="create-name" name="name" value={this.state.name} onChange={this.handleChange} type="text/" placeholder="Name"/>
+                  <label htmlFor="create-carbs">Carbs:</label>     
+                  <input id="create-carbs" name="carbs" value={this.state.carbs} onChange={this.handleChange} {... num_input_properties} />
+                  <label htmlFor="create-protein">Protein:</label> 
+                  <input id="create-protein" name="protein" value={this.state.protein} onChange={this.handleChange} {... num_input_properties} />
+                  <label htmlFor="create-fat">Fat:</label>         
+                  <input id="create-fat" name="fat" value={this.state.fat} onChange={this.handleChange} {... num_input_properties} />
                 </div>
-                <button className="btn btn-default create-submit">Add</button>
+                <button className="btn btn-default create-submit" onClick={this.handleAddFood}>Add</button>
               </form>
   
               <h2>Stats</h2>

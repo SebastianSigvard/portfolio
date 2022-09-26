@@ -34,7 +34,7 @@ export async function handleFoodGetReq(token) {
     return {status: "ok", foodEntries};
 }
 
-export async function handleFoodPostReq(token, {fields}) {
+export async function handleFoodPostReq(token, fields) {
     let userName;
     try {
         const user_data = jwt.verify(token, process.env.JWT_SECRET);
@@ -57,7 +57,7 @@ export async function handleFoodPostReq(token, {fields}) {
         { "$push": { "food": res._id } }
     );
 
-    return {status: "ok"};
+    return {status: "ok", id: res._id};
 }
 
 export async function handleFoodDeleteReq(token) {
