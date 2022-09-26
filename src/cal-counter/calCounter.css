@@ -143,6 +143,11 @@ button {
     border-radius: 10px;
 }
 
+#food-list{
+    margin: 0px;
+    padding: 0px;
+}
+
 @media only screen and (max-width: 870px) {
     .hero-calcount {
         margin: 12.5% 1em 0% 1em;

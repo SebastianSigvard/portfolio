@@ -19,18 +19,19 @@ export async function handleFoodGetReq(token) {
     const user = await User.findOne({userName}).lean();
     if( ! user ) return {status: "error", error: "Invalid Username"};
 
-    let documents = [];
+    let foodEntries = [];
 
     for(const item of user.food) {
         let res = await Food.findById(item._id).lean();
-        documents.push( {
+        foodEntries.push( {
+            id:      item._id,
             name:    res.foodName, 
             carbs:   res.carbs,
             protein: res.protein, 
             fat:     res.fat} );
     };
 
-    return {status: "ok", documents};
+    return {status: "ok", foodEntries};
 }
 
 export async function handleFoodPostReq(token, {fields}) {
