@@ -35,6 +35,7 @@ export default class CalCountApp extends React.Component {
 
       this.handleAddFood = this.handleAddFood.bind(this);
       this.handleChange = this.handleChange.bind(this);
+      this.handleCleanEntries = this.handleCleanEntries.bind(this);
     }
 
     async componentDidMount(){  
@@ -87,6 +88,21 @@ export default class CalCountApp extends React.Component {
       }]});
     }
 
+    async handleCleanEntries(event){
+      event.preventDefault();
+      const token = localStorage.getItem('token');
+      if(!token) return this.props.handleLogout();
+
+      const resp = await fetch('/cal-api-v1/food', {
+        method: 'delete',
+        headers: {'Authorization': token},
+      });
+      
+      if(resp.status !== 200) return this.props.handleLogout();
+
+      this.setState({foodEntries: []});
+    }
+
     render(){
       const num_input_properties = {
         className:"nutrition-input",
@@ -97,7 +113,10 @@ export default class CalCountApp extends React.Component {
       }
 
       const cards = this.state.foodEntries.map(entrie => <Card {...entrie}/>);
-  
+      const calories = this.state.foodEntries.reduce((total, entrie) => {
+        return total + entrie.carbs * 4 + entrie.protein * 4 + entrie.fat * 9;
+      },0);
+
       return (
         <div className="container">
           <h2 id="cal-title">Calories Counter</h2>
@@ -122,11 +141,11 @@ export default class CalCountApp extends React.Component {
   
               <h2>Log</h2>
               <div className="card" id="total-calories-container">
-                <h3>Total calories logged: <span id="total-calories">0</span></h3>
+                <h3>Total calories logged: <span id="total-calories">{calories}</span></h3>
               </div>
               <ul id="food-list">{cards}</ul>
           </div>
-          <button id="clean-entrys">Clean Entrys</button><button id="log-out" onClick={this.props.handleLogout}>LogOut</button>
+          <button id="clean-entrys" onClick={this.handleCleanEntries}>Clean Entries</button><button id="log-out" onClick={this.props.handleLogout}>LogOut</button>
         </div>
       );
     }
