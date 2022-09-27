@@ -1,4 +1,6 @@
+import { Chart, registerables } from 'chart.js';
 import React from 'react'
+Chart.register(...registerables);
 
 class Card extends React.Component {
   render(){
@@ -82,9 +84,9 @@ export default class CalCountApp extends React.Component {
       this.setState({foodEntries: [...this.state.foodEntries,{
         id: data.id,
         name: this.state.name,
-        carbs: this.state.carbs,
-        protein: this.state.protein,
-        fat: this.state.fat,
+        carbs: Number.parseInt(this.state.carbs),
+        protein: Number.parseInt(this.state.protein),
+        fat: Number.parseInt(this.state.fat),
       }]});
     }
 
@@ -101,6 +103,42 @@ export default class CalCountApp extends React.Component {
       if(resp.status !== 200) return this.props.handleLogout();
 
       this.setState({foodEntries: []});
+    }
+
+    componentDidUpdate(prevProps, prevState){
+      if(prevState.foodEntries === this.state.foodEntries) return;
+      this.chartInstance?.destroy();
+      const context = document.querySelector("#app-chart").getContext("2d");
+      console.log(this.state.foodEntries);
+      const totalCarbs = this.state.foodEntries.reduce((total, entrie) => total + entrie.carbs, 0);
+      const totalProtein = this.state.foodEntries.reduce((total, entrie) => total + entrie.protein, 0);
+      const totalFat = this.state.foodEntries.reduce((total, entrie) => total + entrie.fat, 0);
+      console.log({totalCarbs, totalProtein, totalFat});
+      this.chartInstance = new Chart(context, {
+        type: "bar",
+        data: {
+          labels: ["Carbs", "Protein", "Fat"],
+          datasets: [
+            {
+              labels: ["Macronutrients", "2", "1"],
+              data: [
+                totalCarbs,
+                totalProtein,
+                totalFat,
+              ],
+              backgroundColor: ["#25AEEE", "#FECD52", "#57D269"],
+              borderWidth: 3, // example of other customization
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
+      });
     }
 
     render(){
@@ -149,5 +187,7 @@ export default class CalCountApp extends React.Component {
         </div>
       );
     }
+
+    chartInstance = null;
   }
   
