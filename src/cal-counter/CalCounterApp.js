@@ -108,12 +108,12 @@ export default class CalCountApp extends React.Component {
     componentDidUpdate(prevProps, prevState){
       if(prevState.foodEntries === this.state.foodEntries) return;
       this.chartInstance?.destroy();
+
       const context = document.querySelector("#app-chart").getContext("2d");
-      console.log(this.state.foodEntries);
       const totalCarbs = this.state.foodEntries.reduce((total, entrie) => total + entrie.carbs, 0);
       const totalProtein = this.state.foodEntries.reduce((total, entrie) => total + entrie.protein, 0);
       const totalFat = this.state.foodEntries.reduce((total, entrie) => total + entrie.fat, 0);
-      console.log({totalCarbs, totalProtein, totalFat});
+      
       this.chartInstance = new Chart(context, {
         type: "bar",
         data: {
