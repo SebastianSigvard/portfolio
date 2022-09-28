@@ -10,14 +10,14 @@ class Card extends React.Component {
           <div>
             <h3 className="name">{this.props.currencyPair}</h3>
             <h4>Bid</h4>
-            <ul className="macros">
-              <li className="carbs"><div>Quantity</div><div className="value">{this.props.data.bid.quantity}</div></li>
-              <li className="protein"><div>Rate</div><div className="value">{Number(this.props.data.bid.rate).toFixed(2)}</div></li>
+            <ul>
+              <li><div><strong>Quantity</strong></div><div className="value">{this.props.data.bid.quantity}</div></li>
+              <li><div><strong>Rate</strong></div><div className="value">{Number(this.props.data.bid.rate).toFixed(2)}</div></li>
             </ul>
             <h4>Ask</h4>
-            <ul className="macros">
-              <li className="carbs"><div>Quantity</div><div className="value">{this.props.data.ask.quantity}</div></li>
-              <li className="protein"><div>Rate</div><div className="value">{Number(this.props.data.ask.rate).toFixed(2)}</div></li>
+            <ul>
+              <li><div><strong>Quantity</strong></div><div className="value">{this.props.data.ask.quantity}</div></li>
+              <li><div><strong>Rate</strong></div><div className="value">{Number(this.props.data.ask.rate).toFixed(2)}</div></li>
             </ul>
           </div>
         </li>
