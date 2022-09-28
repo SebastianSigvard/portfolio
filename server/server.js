@@ -72,6 +72,6 @@ app.use((req, res, next) => {
 });
 
 // start express server on port 5000
-app.listen(5000, () => {
-  console.log("server started on port http://localhost:5000/");
+app.listen(3000, () => {
+  console.log("server started on port http://127.0.0.1:3000/");
 });
