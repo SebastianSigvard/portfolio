@@ -16,7 +16,7 @@
 
 .hero-market-status .container {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 50% 50%;
     align-items: top;
 }
 
@@ -71,8 +71,7 @@ input:not(.btn) {
     text-align: center;
 }
 
-
-.card {
+.card-market-status {
     background-color: white;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.07);
     padding: 15px;
@@ -85,30 +84,30 @@ input:not(.btn) {
     position: relative;
     width: 70%;
 }
-li.card{
+li.card-market-status{
     margin: auto;
 }
-.card h3 {
+.card-market-status h3 {
     margin-top: 0;
     margin-bottom: 10px;
 }
 
-.card .name {
+.card-market-status .name {
     font-size: 24px;
     margin-bottom: 5px;
 }
 
-.card ul {
+.card-market-status ul {
     padding-left: 0;
     line-height: 22px;
     font-size: 14px;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto;
     gap: 25px;
     color: rgba(0, 0, 0, 0.8);
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1350px) {
     .hero-market-status .container {
         display: block;
         align-items: center;
