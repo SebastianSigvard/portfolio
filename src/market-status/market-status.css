@@ -114,7 +114,44 @@ li.card-market-status{
     margin: 0.4em;
 }
 
-@media only screen and (max-width: 1350px) {
+.card-market-status-calc {
+    background-color: white;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.07);
+    padding: 15px;
+    margin: auto;
+    border-radius: 8px;
+    list-style: none;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    position: relative;
+    width: 70%;
+}
+li.card-market-status-calc{
+    margin: auto;
+}
+.card-market-status-calc h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.card-market-status-calc .name {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+.card-market-status-calc ul {
+    list-style: none;
+    padding-left: 0;
+    line-height: 22px;
+    font-size: 14px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 25px;
+    color: rgba(0, 0, 0, 0.8);
+    margin: 0.4em;
+}
+
+@media only screen and (max-width: 1500px) {
     .hero-market-status .container {
         display: block;
         align-items: center;

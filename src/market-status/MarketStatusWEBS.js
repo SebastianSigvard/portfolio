@@ -9,7 +9,7 @@ export default class MarketStatusWEBS extends React.Component {
       currencyPairCalc: '',
       operation: '',
       amount: 0,
-      cap: 0,
+      cap: '',
     }
 
     this.handleChange = this.handleChange.bind(this);
