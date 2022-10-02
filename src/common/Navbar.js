@@ -22,13 +22,14 @@ export default class Navbar extends React.Component {
   }
 
   render() {
-    let displayNav = this.state.wWidth > 870 ? 'flex' : 'none';
+    let displayNav = this.state.wWidth > 900 ? 'flex' : 'none';
     displayNav = this.state.menuDisplayed ? 'flex' : displayNav;
 
     const styles = {};
     styles['home'] = 'normal';
     styles['cal-count'] = 'normal';
     styles['market-status'] = 'normal';
+    styles['nft-market'] = 'normal';
 
     const path = window.location.href.slice(26);
     if (path === '') {
@@ -37,6 +38,8 @@ export default class Navbar extends React.Component {
       styles['cal-count'] = 'bold';
     } else if (path === 'market-status') {
       styles['market-status'] = 'bold';
+    } else if (path === 'nft-market') {
+      styles['nft-market'] = 'bold';
     }
 
     return (
@@ -64,6 +67,11 @@ export default class Navbar extends React.Component {
               <li>
                 <a href="market-status">
                   {styles['market-status'] === 'bold'? <b>Market Status</b> : 'Market Status' }
+                </a>
+              </li>
+              <li>
+                <a href="nft-market">
+                  {styles['nft-market'] === 'bold'? <b>NFT Market</b> : 'NFT Market' }
                 </a>
               </li>
             </ul>

@@ -30,7 +30,7 @@ p {
     margin-bottom: 0.7em;
 }
 
-@media only screen and (max-width: 870px) {
+@media only screen and (max-width: 900px) {
     .hero {
         margin: 12.5% 1em 0% 1em;
     }

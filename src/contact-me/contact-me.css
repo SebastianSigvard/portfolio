@@ -60,7 +60,7 @@ input:not(.btn) {
     text-align: center;
 }
 
-@media only screen and (max-width: 870px) {
+@media only screen and (max-width: 900px) {
     .hero-contactme {
         margin: 12.5% 1em 0% 1em;
     }

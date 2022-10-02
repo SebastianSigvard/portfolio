@@ -2,6 +2,7 @@ import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom
 import MarketStatus from './market-status/MarketStatus';
 import CalCounter from './cal-counter/CalCounter';
 import NotFoundPage from './common/NotFoundPage';
+import NftMarket from './nft-market/nftMarket';
 import ContactMe from './contact-me/ContactMe';
 import Navbar from './common/Navbar';
 import Home from './home/Home';
@@ -16,6 +17,7 @@ function App() {
         <Route exact path='/' element={<Home />} />
         <Route path='/cal-count' element={<CalCounter/>} />
         <Route path='/market-status' element={<MarketStatus/>} />
+        <Route path='/nft-market' element={<NftMarket/>} />
         <Route path='/contact' element={<ContactMe/>} />
         <Route path="/404" element={<NotFoundPage/>} />
         <Route path="*" element={<Navigate replace to="/404" />} />

@@ -73,7 +73,7 @@
   }
   
   /* For narrow display */
-  @media only screen and (max-width: 870px) {
+  @media only screen and (max-width: 900px) {
     .mobile-menu {
       display: flex;
       height: 25px;
