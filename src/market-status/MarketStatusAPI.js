@@ -45,7 +45,6 @@ export default class MarketStatusAPI extends React.Component {
         cap: this.state.cap})
     })
     const data = await resp.json();
-    console.log(data);
     this.setState({calcApiResults:  <CardCalc currencyPairTips={this.state.currencyPairCalc} operation={this.state.operation} {...data}/>})
   }
 
