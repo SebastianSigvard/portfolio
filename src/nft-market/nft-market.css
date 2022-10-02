@@ -1,0 +1,10 @@
+.hero-nft {
+    text-align: center;
+    background-color: var(--primary-color);
+    margin: 2% 25% 0% 25%;
+    padding: 2em;
+    border-radius: 1em;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+

@@ -12,7 +12,8 @@
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "web3": "^1.8.0"
   },
   "scripts": {
     "start": "npm run build && (cd server && npm start)",
