@@ -1,12 +1,12 @@
-import './style.css';
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+import MarketStatus from './market-status/MarketStatus';
+import CalCounter from './cal-counter/CalCounter';
+import NotFoundPage from './common/NotFoundPage';
+import ContactMe from './contact-me/ContactMe';
 import Navbar from './common/Navbar';
-import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
-import Home from './home/Home'
-import MarketStatus from './market-status/MarketStatus'
-import CalCounter from './cal-counter/CalCounter'
-import ContactMe from './contact-me/ContactMe'
-import NotFoundPage from './common/NotFoundPage'
-
+import Home from './home/Home';
+import React from 'react';
+import './style.css';
 
 function App() {
   return (

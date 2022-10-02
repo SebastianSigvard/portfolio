@@ -1,17 +1,17 @@
 import CalCountRegister from './CalCounterRegister.js';
 import CalCountLogin from './CalCounterLogin.js';
 import CalCountApp from './CalCounterApp.js';
-import React from 'react'
-import './calCounter.css'
+import React from 'react';
+import './calCounter.css';
 
 export default class CalCounter extends React.Component {
-  constructor(){
-    super();        
+  constructor() {
+    super();
 
     this.state = {
-        token : localStorage.getItem('token'),
-        onLogin: true
-    }
+      token: localStorage.getItem('token'),
+      onLogin: true,
+    };
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
@@ -20,77 +20,80 @@ export default class CalCounter extends React.Component {
     this.handleRegistration = this.handleRegistration.bind(this);
   }
 
-  async componentDidMount(){
-    if(!this.state.token) return;
+  async componentDidMount() {
+    if (!this.state.token) return;
 
     const resp = await fetch('/token-validation', {
       method: 'get',
       headers: {'Authorization': this.state.token},
     });
-    
-    if(resp.status === 200) return;
-    localStorage.removeItem('token')
+
+    if (resp.status === 200) return;
+    localStorage.removeItem('token');
     this.setState({token: ''});
   }
 
-  async handleLogin(userName, password){
+  async handleLogin(userName, password) {
     const resp = await fetch('/login', {
       method: 'post',
-      headers: {'Content-Type':'application/json'},
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-       userName,
-       password
-      })
+        userName,
+        password,
+      }),
     });
 
     const data = await resp.json();
 
-    if(data.status === 'ok') {
+    if (data.status === 'ok') {
       localStorage.setItem('token', data.token);
       this.setState({token: data.token});
     } else {
       alert(data.error);
     }
   }
-  
-  async handleRegistration(userName, password){
+
+  async handleRegistration(userName, password) {
     const resp = await fetch('/registration', {
       method: 'post',
-      headers: {'Content-Type':'application/json'},
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-       userName,
-       password
-      })
+        userName,
+        password,
+      }),
     });
 
     const data = await resp.json();
 
-    if(data.status !== 'ok') {
+    if (data.status !== 'ok') {
       alert(data.error);
       return;
     }
     this.setState({onLogin: true});
   }
 
-  handleLogout(){
+  handleLogout() {
     localStorage.removeItem('token');
     this.setState({token: ''});
   }
 
-  handleGoToRegister(){
+  handleGoToRegister() {
     this.setState({onLogin: false});
   }
 
-  handleGoToLogin(){
+  handleGoToLogin() {
     this.setState({onLogin: true});
   }
 
-  render(){
-    return ( 
+  render() {
+    return (
       <section className="hero-calcount">
         {this.state.token && <CalCountApp handleLogout={this.handleLogout}/>}
-        {!this.state.token && this.state.onLogin && <CalCountLogin handleLogin={this.handleLogin} handleGoToRegister={this.handleGoToRegister}/>}
-        {!this.state.token && !this.state.onLogin && <CalCountRegister handleRegistration={this.handleRegistration} handleGoToLogin={this.handleGoToLogin}/>}
+        {!this.state.token && this.state.onLogin && <CalCountLogin
+          handleLogin={this.handleLogin} handleGoToRegister={this.handleGoToRegister}/>}
+
+        {!this.state.token && !this.state.onLogin && <CalCountRegister
+          handleRegistration={this.handleRegistration} handleGoToLogin={this.handleGoToLogin}/>}
       </section>
     );
   }
