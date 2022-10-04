@@ -8,3 +8,83 @@
     word-break: break-word;
 }
 
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 3px solid #ccc;
+    border-radius: 14px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: #f2f2f2;
+    font-size: 1.4em;
+    margin-bottom: 1em;
+}
+
+.container-nft-minter {
+    align-items: center;
+    padding: auto;
+}
+
+.nft-card {
+    max-width: 90%;
+    width: 400px;
+    height: 500px;
+    border-radius: 14px;
+    background-color: #f2f2f2;
+    align-items: center;
+    margin: auto;
+    padding: 0.5em;
+    position: relative;
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+}
+
+.nft-image {
+    border-radius: 14px;
+    max-height: 80%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    margin: auto;
+    position: relative;
+    top: 10%;
+    transform: translateY(-10%);
+}
+
+.nft-name {
+    font-size: 1.3em;
+    position: absolute;
+    top: 82%;
+    transform: translateY(-82%);
+    right: 50%;
+    transform: translatex(50%);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;  
+}
+
+.nft-description {
+    font-size: 0.9em;
+    position: relative;
+    position: absolute;
+    top: 88%;
+    transform: translateY(-88%);
+    right: 50%;
+    transform: translatex(50%);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+@media only screen and (max-width: 900px) {
+    .hero-nft {
+        margin: 6% 1em 0% 1em;
+    }
+}
